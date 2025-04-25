@@ -1,0 +1,28 @@
+/* WeatherInfo.css */
+.weather-info-container {
+    text-align: center;
+    color: #3b089c;
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.0);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.weather-info-container h2 {
+    color: #483d7c; 
+}
+
+.weather-info-container .temperature {
+    font-size: 2em;
+    color:  #483d7c; 
+}
+
+.weather-info-container .description {
+    font-size: 1.2em;
+    color:  #483d7c;  
+}
+
+.weather-info-container .no-data {
+    color:  #483d7c; 
+    font-size: 1.5em;
+}

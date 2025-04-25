@@ -3,18 +3,19 @@ import WeatherInfo from './components/WeatherInfo/WeatherInfo-File/WeatherInfo';
 import Header from './components/WeatherInfo/Header/Header';
 import SearchBar from './components/WeatherInfo/SearchBar/SearchBar';
 import { useState } from 'react';
+
 function App() {
   const [city, setCity] = useState('');
 
   const handleSearch = (newCity) => {
-    setCity(newCity);
+    setCity(newCity); 
   }
 
   return (
     <div className="App-container">
-      <SearchBar onSearch={handleSearch} />
       <Header />
-      <WeatherInfo city={city}/>
+      <SearchBar onSearch={handleSearch} />
+      <WeatherInfo city={city} />
     </div>
   );
 }

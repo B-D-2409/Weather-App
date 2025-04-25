@@ -2,9 +2,14 @@
 display: flex;
 align-items: center;
 justify-content: center;
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
 gap: 1rem;
 margin: 2rem 0;
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+padding: 1rem;
 
 
   }
@@ -12,10 +17,12 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   .header h1{
     font-size: 3rem;
     font-weight: bold;
-    color: #032950;
+    color: #292052; 
   }
 
   .sun-icon {
+    margin-right: 10px;
     font-size: 3rem;
+    padding: 0%;
   }
   

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
 import PropTypes from "prop-types";
-const SearchBar = ({onSearch}) => {
+
+const SearchBar = ({ onSearch }) => {
     const [city, setCity] = useState("");
 
     const handleInputChange = (event) => {
@@ -12,13 +13,20 @@ const SearchBar = ({onSearch}) => {
         onSearch(city);
     }
 
+    const handleKeyDown = (event) => {
+        if(event.key === "Enter") {
+            handleSearch();
+        }
+    }
+
     return (
         <div className='search-bar'>
             <input
-            type='text'
-            placeholder="Enter City"
-            value={city}
-            onChange={handleInputChange}
+                type='text'
+                placeholder="Enter City"
+                value={city}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
             />
             <button onClick={handleSearch}>Search</button>
         </div>
@@ -28,4 +36,5 @@ const SearchBar = ({onSearch}) => {
 SearchBar.propTypes = {
     onSearch: PropTypes.func.isRequired,
 };
+
 export default SearchBar;

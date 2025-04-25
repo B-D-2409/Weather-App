@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
-function WeatherInfo() {
+import './WeatherInfo.css';
+function WeatherInfo({ city }) {
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const city = 'Sofia';
 
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -20,10 +19,13 @@ function WeatherInfo() {
         try {
             const response = await fetch(url);
             const data = await response.json();
-
-            setWeatherData(data);
+            if (response.ok) {
+                setWeatherData(data);
+            } else {
+                setError('City not found!');
+            }
         } catch (error) {
-            setError('Unsuccessful to fetch weather data');
+            setError('Failed to fetch weather data');
             console.error(error);
         } finally {
             setLoading(false);
@@ -31,21 +33,28 @@ function WeatherInfo() {
     }
 
     useEffect(() => {
-        fetchWeatherData();
-    }, [city,apiKey]);
-    if (loading) return <p>Loading Data...</p>;
+        if (city) {
+            fetchWeatherData();
+        }
+    }, [city, apiKey]);
+
+    if (loading) {
+        return <p>Loading Data... / Type City</p>;
+    }
     if (error) return <p>{error}</p>;
 
     return (
-        <div>
+        <div className="weather-info-container"> {/* Apply the container class here */}
+            {loading && <p>Loading Data... or Type City</p>}
+            {error && <p>{error}</p>}
             {weatherData ? (
                 <>
                     <h2>Weather in {city}</h2>
-                    <p>Temperature: {weatherData.main.temp} °C</p>
-                    <p>Description: {weatherData.weather[0].description}</p>
+                    <p className="temperature">Temperature: {weatherData.main.temp} °C</p>
+                    <p className="description">Description: {weatherData.weather[0].description}</p>
                 </>
             ) : (
-                <p>No data available</p>
+                <p className="no-data">No data available</p>
             )}
         </div>
     );
