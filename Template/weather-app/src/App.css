@@ -1,9 +1,42 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('/pexels-tahir-shaw-50609-186980.jpg'); /* Correct path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
+
+
+/* App wrapper */
+#root {
+  background-color: rgba(255, 255, 255, 0.2); /* light white bg for contrast */
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-top: 4rem; 
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+}
+
+
+.header h1 {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.sun-icon {
+  font-size: 3rem;
+  margin-right: 0.5rem;
+}
+
 
 .logo {
   height: 6em;
