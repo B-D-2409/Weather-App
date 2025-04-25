@@ -5,17 +5,20 @@ import SearchBar from './components/WeatherInfo/SearchBar/SearchBar';
 import { useState } from 'react';
 
 function App() {
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState(''); 
 
   const handleSearch = (newCity) => {
-    setCity(newCity); 
-  }
+    setCity(newCity);
+  };
 
   return (
     <div className="App-container">
-      <Header />
-      <SearchBar onSearch={handleSearch} />
-      <WeatherInfo city={city} />
+      <div className="top-bar">
+  <Header />
+  <SearchBar onSearch={handleSearch} />
+</div>
+
+      {city && <WeatherInfo city={city} />} 
     </div>
   );
 }

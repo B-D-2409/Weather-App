@@ -1,67 +1,105 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import './WeatherInfo.css';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import './WeatherInfo.css'
 function WeatherInfo({ city }) {
     const [weatherData, setWeatherData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-
-    const fetchWeatherData = async () => {
-        if (!city) return;
-        setLoading(true);
-        setError(null);
-
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            if (response.ok) {
-                setWeatherData(data);
-            } else {
-                setError('City not found!');
-            }
-        } catch (error) {
-            setError('Failed to fetch weather data');
-            console.error(error);
-        } finally {
-            setLoading(false);
+    const [forecastData, setForecastData] = useState(null); 
+    const [loading, setLoading] = useState(false);
+    const [showForecast, setShowForecast] = useState(false);
+  
+    const apiKeyWeather = import.meta.env.VITE_WEATHER_API_KEY;  
+    const apiKeyForeCast = import.meta.env.VITE_WEATHER_API_KEY_FORECAST;
+  
+    const fetchWeatherData = async (city) => {
+      const geoUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKeyWeather}&units=metric`;
+      try {
+        const response = await fetch(geoUrl);
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching current weather:', error);
+        return null;
+      }
+    };
+  
+    const fetchForecastData = async (lat, lon) => {
+      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKeyForeCast}&units=metric`;
+      try {
+        const response = await fetch(forecastUrl);
+        const data = await response.json();
+        if (data.cod === '200') {
+          return data;
+        } else {
+          console.error('Error fetching forecast data:', data.message);
+          return null;
         }
-    }
-
+      } catch (error) {
+        console.error('Error fetching forecast:', error);
+        return null;
+      }
+    };
+  
     useEffect(() => {
-        if (city) {
-            fetchWeatherData();
+      if (!city) return;
+  
+      const fetchData = async () => {
+        setLoading(true);
+        const currentWeather = await fetchWeatherData(city);
+        setWeatherData(currentWeather);
+  
+        if (currentWeather) {
+          const { lat, lon } = currentWeather.coord;
+          const forecast = await fetchForecastData(lat, lon);
+          setForecastData(forecast);
         }
-    }, [city, apiKey]);
-
-    if (loading) {
-        return <p>Loading Data... / Type City</p>;
-    }
-    if (error) return <p>{error}</p>;
-
+  
+        setLoading(false);
+      };
+  
+      fetchData();
+    }, [city]);
+  
+    if (loading) return <p>Loading... / Type City</p>;
+  
     return (
-        <div className="weather-info-container"> {/* Apply the container class here */}
-            {loading && <p>Loading Data... or Type City</p>}
-            {error && <p>{error}</p>}
-            {weatherData ? (
-                <>
-                    <h2>Weather in {city}</h2>
-                    <p className="temperature">Temperature: {weatherData.main.temp} °C</p>
-                    <p className="description">Description: {weatherData.weather[0].description}</p>
-                </>
-            ) : (
-                <p className="no-data">No data available</p>
-            )}
+      <div className="weather-info-container">
+        {weatherData ? (
+          <>
+            <h2>Weather in {city}</h2>
+            <p>Temperature: {weatherData.main.temp} °C</p>
+            <p>Description: {weatherData.weather[0].description}</p>
+
+            <button onClick={() => setShowForecast(!showForecast)}>
+                {showForecast ? 'Hide Forecast' : 'Show 5-Day Forecast'}
+            </button>
+
+            {showForecast && forecastData && (
+  <div className="forecast">
+    <h2>5-Day Forecast</h2>
+    <div className="forecast-grid">
+      {forecastData.list.map((forecast, index) => (
+        <div key={index} className="forecast-item">
+          <p>{new Date(forecast.dt * 1000).toLocaleString()}</p>
+          <p>Temp: {forecast.main.temp}°C</p>
+          <p>{forecast.weather[0].description}</p>
         </div>
+      ))}
+    </div>
+  </div>
+)}
+
+
+          </>
+        ) : (
+          <p>No data available</p>
+        )}
+      </div>
     );
-}
-
-WeatherInfo.propTypes = {
+  }
+  
+  WeatherInfo.propTypes = {
     city: PropTypes.string.isRequired,
-}
-
-export default WeatherInfo;
+  };
+  
+  export default WeatherInfo;
+  

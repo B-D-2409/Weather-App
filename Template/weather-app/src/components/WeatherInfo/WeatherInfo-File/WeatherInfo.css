@@ -1,28 +1,85 @@
-/* WeatherInfo.css */
 .weather-info-container {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     color: #3b089c;
-    font-family: Arial, sans-serif;
-    background-color: rgba(0, 0, 0, 0.0);
+    background-color: rgba(255, 255, 255, 0.4);
     padding: 20px;
-    margin-top: 20px;
+    margin-top: -40px;
+    margin-left: auto;
+    border-radius: 12px;
+    max-width: 90%;
+    width: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 120px; 
+    right: 0; 
+    
 }
 
 .weather-info-container h2 {
-    color: #483d7c; 
+    width: 120%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: 0;
+    color: #483d7c;
+    
 }
 
-.weather-info-container .temperature {
-    font-size: 2em;
-    color:  #483d7c; 
+.weather-info-container p {
+    margin: 4px 0;
+    font-size: 1rem;
 }
 
-.weather-info-container .description {
-    font-size: 1.2em;
-    color:  #483d7c;  
+button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #483d7c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-.weather-info-container .no-data {
-    color:  #483d7c; 
-    font-size: 1.5em;
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
 }
+
+.forecast-item {
+    background-color: rgba(72, 61, 124, 0.05);
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 10px;
+}
+.forecast {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: flex-start; 
+    max-height: 500px; 
+    overflow-y: scroll; 
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .forecast-item {
+    background-color: rgba(72, 61, 124, 0.05);
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 8px 0; 
+    width: 100%;
+  
+  }
+  
+  @keyframes fadeInForecast {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
