@@ -3,10 +3,9 @@ import WeatherInfo from './components/WeatherInfo/WeatherInfo-File/WeatherInfo';
 import Header from './components/WeatherInfo/Header/Header';
 import SearchBar from './components/WeatherInfo/SearchBar/SearchBar';
 import { useState } from 'react';
-import MapView from './components/MapView/MapView';
 
 function App() {
-  const [city, setCity] = useState(''); 
+  const [city, setCity] = useState('Sofia');
   const [coordinates, setCoordinates] = useState({ lat: null, lon: null });
 
   const handleSearch = (newCity) => {

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import './WeatherInfo.css'
 import MapView from "../../MapView/MapView";
+
 function WeatherInfo({ city }) {
     const [weatherData, setWeatherData] = useState(null);
     const [forecastData, setForecastData] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [currentCity, setCurrentCity] = useState(city || "Sofia");
 
     const apiKeyWeather = import.meta.env.VITE_WEATHER_API_KEY;
     const apiKeyForeCast = import.meta.env.VITE_WEATHER_API_KEY_FORECAST;
@@ -41,13 +41,12 @@ function WeatherInfo({ city }) {
     };
 
     useEffect(() => {
-        if (!currentCity) return;
+        if (!city) return;
 
         const fetchData = async () => {
             setLoading(true);
-            const currentWeather = await fetchWeatherData(currentCity);
+            const currentWeather = await fetchWeatherData(city);
             setWeatherData(currentWeather);
-
 
             if (currentWeather) {
                 const { lat, lon } = currentWeather.coord;
@@ -59,12 +58,7 @@ function WeatherInfo({ city }) {
         };
 
         fetchData();
-    }, [currentCity]);
-
-    const handleCityChange = (e) => {
-        setCurrentCity(e.target.value);
-
-    }
+    }, [city]);
 
     if (loading) {
         return (
@@ -79,7 +73,7 @@ function WeatherInfo({ city }) {
                     <MapView lat={weatherData.coord.lat} lon={weatherData.coord.lon} />
                 </div>
             )}
-    
+
             <div className="additional-info-container">
                 <h3>Additional Weather Info</h3>
                 <div className="additional-info-grid">
@@ -101,27 +95,26 @@ function WeatherInfo({ city }) {
                     </div>
                 </div>
             </div>
-    
+
             <div className="weather-info-container">
                 {weatherData ? (
                     <>
                         <h2>Weather in {city}</h2>
-    
+
                         <div className="info-row-weather">
                             <span>Temperature:</span>
                             <span>{weatherData.main.temp} °C</span>
                         </div>
-    
+
                         <div className="info-row-weather">
                             <span>Description:</span>
                             <span>{weatherData.weather[0].description}</span>
                         </div>
-    
-        
+
                         <div className="forecast">
-                        <h2>5-DAY WEATHER FORECAST WITH 3-HOUR INTERVAL UPDATES</h2>
+                            <h2>5-DAY WEATHER FORECAST WITH 3-HOUR INTERVAL UPDATES</h2>
                             <div className="forecast-grid">
-                                {forecastData.list.map((forecast, index) => (
+                                {forecastData?.list?.map((forecast, index) => (
                                     <div key={index} className="forecast-item">
                                         <p>{new Date(forecast.dt * 1000).toLocaleString()}</p>
                                         <p>Temp: {forecast.main.temp}°C</p>
@@ -137,8 +130,6 @@ function WeatherInfo({ city }) {
             </div>
         </div>
     );
-    
-
 }
 
 WeatherInfo.propTypes = {
