@@ -14,6 +14,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    
   }
   
   body {
@@ -36,7 +37,7 @@
   .search-bar button {
     padding: 0.5rem;
     height: 40px;
-    background-color: rgba(51, 213, 238, 0.5);
+    background-color: rgba(33, 178, 166, 0.5);
     border: none;
     color: #173f27;
     border-radius: 4px;
@@ -45,7 +46,7 @@
   }
   
   .search-bar button:hover {
-    background-color: #3cdaa8;
+    background-color: #175f48;
   }
   
   .logo {

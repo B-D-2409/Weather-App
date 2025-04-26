@@ -4,7 +4,9 @@ const Header = () => {
   return (
     <div className="header">
       <span className="sun-icon">☀️</span>
-      <h1>Weather App</h1>
+      <a href="/" className="header-link">
+        <h1>Weather</h1>
+      </a>
     </div>
   );
 };
