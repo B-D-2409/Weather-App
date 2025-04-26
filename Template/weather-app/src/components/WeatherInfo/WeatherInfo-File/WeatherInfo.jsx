@@ -81,19 +81,19 @@ function WeatherInfo({ city }) {
   <div className="additional-info-grid">
     <div className="info-row">
       <span>Humidity:</span>
-      <span>{weatherData.main.humidity}%</span>
+      <span>{weatherData?.main?.humidity ?? "N/A"}%</span>
     </div>
     <div className="info-row">
       <span>Wind Speed:</span>
-      <span>{weatherData.wind.speed} m/s</span>
+      <span>{weatherData?.wind?.speed ?? "N/A"} m/s</span>
     </div>
     <div className="info-row">
       <span>Pressure:</span>
-      <span>{weatherData.main.pressure} hPa</span>
+      <span>{weatherData?.main?.pressure ?? "N/A"} hPa</span>
     </div>
     <div className="info-row">
       <span>Feels Like:</span>
-      <span>{weatherData.main.feels_like} °C</span>
+      <span>{weatherData?.main?.feels_like ?? "N/A"} °C</span>
     </div>
   </div>
 </div>
