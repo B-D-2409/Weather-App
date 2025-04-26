@@ -13,6 +13,7 @@
     margin-right: 1rem;
     display: flex;
     align-items: center;
+    gap: 0.5rem;
   }
   
   body {
@@ -24,7 +25,8 @@
     flex: 1;
     max-width: 1000px;
     min-width: 300px;
-    padding: 0.5rem;
+    padding: 0.1rem;
+    height: 40px;
     border-radius: 4px;
     border: 1px solid #ccc;
     background-color: rgba(255, 255, 255, 0.5);
@@ -33,15 +35,17 @@
   
   .search-bar button {
     padding: 0.5rem;
-    background-color: rgba(57, 172, 78, 0.5);
+    height: 40px;
+    background-color: rgba(51, 213, 238, 0.5);
     border: none;
-    color: rgb(75, 57, 115);
+    color: #173f27;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: -0.1rem;
   }
   
   .search-bar button:hover {
-    background-color: #21a1f1;
+    background-color: #3cdaa8;
   }
   
   .logo {
