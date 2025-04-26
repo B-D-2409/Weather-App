@@ -116,8 +116,5 @@ body{
   color: #888;
 }
 
-.zoom-wrapper {
-  transform: scale(var(--zoom));
-  transform-origin: top center;
-  transition: transform 0.2s ease-in-out;
-}
+
+

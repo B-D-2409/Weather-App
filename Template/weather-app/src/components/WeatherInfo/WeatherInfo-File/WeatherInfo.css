@@ -82,4 +82,18 @@ button {
       transform: translateY(0);
     }
   }
+ 
+  .loading-text {
+    display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(180, 174, 174, 0.1);
+  margin: 40px auto;
+    background-color: #1c154a;
+    text-align: center;
+    transform: translateX(80%);
+    font-size: 1.2rem;
+    color: #b9b4c2;
+  }
   
