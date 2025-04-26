@@ -67,47 +67,47 @@ function WeatherInfo({ city }) {
         );
     }
 
-
     return (
-        <div className="weather-info-container">
-            {weatherData ? (
-                <>
-                    <h2>Weather in {city}</h2>
-                    <p>Temperature: {weatherData.main.temp} °C</p>
-                    <p>Description: {weatherData.weather[0].description}</p>
-
-                    <button onClick={() => setShowForecast(!showForecast)}>
-                        {showForecast ? 'Hide Forecast' : 'Show 5-Day Forecast'}
-                    </button>
-
-            
-                    {weatherData.coord && (
-                        <MapView lat={weatherData.coord.lat} lon={weatherData.coord.lon} />
-                    )}
-
-
-                    {showForecast && forecastData && (
-                        <div className="forecast">
-                            <h2>5-Day Forecast</h2>
-                            <div className="forecast-grid">
-                                {forecastData.list.map((forecast, index) => (
-                                    <div key={index} className="forecast-item">
-                                        <p>{new Date(forecast.dt * 1000).toLocaleString()}</p>
-                                        <p>Temp: {forecast.main.temp}°C</p>
-                                        <p>{forecast.weather[0].description}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-
-                </>
-            ) : (
-                <p>No data available</p>
+        <div className="weather-and-map-wrapper">
+            {weatherData && weatherData.coord && (
+                <div className="map-container">
+                    <MapView lat={weatherData.coord.lat} lon={weatherData.coord.lon} />
+                </div>
             )}
+    
+            <div className="weather-info-container">
+                {weatherData ? (
+                    <>
+                        <h2>Weather in {city}</h2>
+                        <p>Temperature: {weatherData.main.temp} °C</p>
+                        <p>Description: {weatherData.weather[0].description}</p>
+    
+                        <button onClick={() => setShowForecast(!showForecast)}>
+                            {showForecast ? 'Hide Forecast' : 'Show 5-Day Forecast'}
+                        </button>
+    
+                        {showForecast && forecastData && (
+                            <div className="forecast">
+                                <h2>5-Day Forecast</h2>
+                                <div className="forecast-grid">
+                                    {forecastData.list.map((forecast, index) => (
+                                        <div key={index} className="forecast-item">
+                                            <p>{new Date(forecast.dt * 1000).toLocaleString()}</p>
+                                            <p>Temp: {forecast.main.temp}°C</p>
+                                            <p>{forecast.weather[0].description}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <p>No data available</p>
+                )}
+            </div>
         </div>
     );
+    
 }
 
 WeatherInfo.propTypes = {

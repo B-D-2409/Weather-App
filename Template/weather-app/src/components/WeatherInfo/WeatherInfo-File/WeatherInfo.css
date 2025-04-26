@@ -15,6 +15,7 @@
     top: 120px; 
     right: 0; 
     
+    
 }
 
 .weather-info-container h2 {
@@ -96,4 +97,31 @@ button {
     font-size: 1.2rem;
     color: #b9b4c2;
   }
+  
+
+  .weather-and-map-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start; 
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .map-container {
+    flex: 1;
+    min-width: 670px;
+    max-width: 54%;
+    height: 245px;
+    position: relative;
+    top: -230px;
+    margin-top: 50px;
+    margin-left: -50px;
+    margin-right: auto;
+  }
+  
+  .weather-info-container {
+    flex: 2;
+    min-width: 50%;
+  }
+  
   
