@@ -5,7 +5,7 @@ import SearchBar from './components/WeatherInfo/SearchBar/SearchBar';
 import { useState } from 'react';
 
 function App() {
-  const [city, setCity] = useState('Sofia');
+  const [city, setCity] = useState('Plovdiv');
   const [coordinates, setCoordinates] = useState({ lat: null, lon: null });
 
   const handleSearch = (newCity) => {
