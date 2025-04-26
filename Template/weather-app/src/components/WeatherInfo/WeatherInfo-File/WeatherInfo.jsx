@@ -74,6 +74,30 @@ function WeatherInfo({ city }) {
                     <MapView lat={weatherData.coord.lat} lon={weatherData.coord.lon} />
                 </div>
             )}
+
+
+<div className="additional-info-container">
+  <h3>Additional Weather Info</h3>
+  <div className="additional-info-grid">
+    <div className="info-row">
+      <span>Humidity:</span>
+      <span>{weatherData.main.humidity}%</span>
+    </div>
+    <div className="info-row">
+      <span>Wind Speed:</span>
+      <span>{weatherData.wind.speed} m/s</span>
+    </div>
+    <div className="info-row">
+      <span>Pressure:</span>
+      <span>{weatherData.main.pressure} hPa</span>
+    </div>
+    <div className="info-row">
+      <span>Feels Like:</span>
+      <span>{weatherData.main.feels_like} °C</span>
+    </div>
+  </div>
+</div>
+
     
             <div className="weather-info-container">
                 {weatherData ? (

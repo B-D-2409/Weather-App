@@ -14,7 +14,8 @@
     position: absolute;
     top: 120px; 
     right: 0; 
-    
+    height: calc(100vh - 120px);
+    overflow-y: auto;
     
 }
 
@@ -117,6 +118,7 @@ button {
     margin-top: 50px;
     margin-left: -50px;
     margin-right: auto;
+    left: -1.5px;
   }
   
   .weather-info-container {
@@ -124,4 +126,39 @@ button {
     min-width: 50%;
   }
   
+  .additional-info-container {
+    position: absolute;
+    top: 500px;
+    left: 1px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    width: 631px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    height: auto;
+  }
+  
+  .additional-info-container h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .additional-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #555;
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 10px 15px;
+    border-radius: 8px;
+  }
   
