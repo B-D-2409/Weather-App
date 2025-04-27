@@ -90,8 +90,8 @@ function WeatherInfo({ city }) {
         return <p className="loading-text">Loading... / Type City or country</p>;
     }
 
-    const isDay = weatherData?.weather[0].icon.includes("d");
     
+
     return (
         <div className="weather-and-map-wrapper">
             {weatherData?.coord && (
