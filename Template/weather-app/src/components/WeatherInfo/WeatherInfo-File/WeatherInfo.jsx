@@ -62,7 +62,7 @@ function WeatherInfo({ city }) {
 
     if (loading) {
         return (
-            <p className="loading-text">Loading... / Type City</p>
+            <p className="loading-text">Loading... / Type City or country</p>
         );
     }
 
