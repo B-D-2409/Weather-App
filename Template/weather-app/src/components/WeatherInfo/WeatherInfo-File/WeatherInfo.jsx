@@ -1,16 +1,17 @@
-
+// src/components/WeatherInfo/WeatherInfo.jsx
 
 /**
- * WeatherInfo component fetches and displays current weather and 5-day forecast for a given city.
+ * WeatherInfo component fetches and displays current weather and a 5-day forecast
+ * for a given city, and renders a map at the city’s coordinates.
  *
  * @component
  * @param {Object} props
- * @param {string} props.city - The name of the city for which weather data should be displayed.
- * @returns {JSX.Element} Weather information including current weather details and a 5-day forecast with 3-hour intervals.
+ * @param {string} props.city – The name of the city to fetch weather for.
+ * @returns {JSX.Element}
  */
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import './WeatherInfo.css'
+import "./WeatherInfo.css";
 import MapView from "../../MapView/MapView";
 
 function WeatherInfo({ city }) {
@@ -22,10 +23,11 @@ function WeatherInfo({ city }) {
     const apiKeyForeCast = import.meta.env.VITE_WEATHER_API_KEY_FORECAST;
 
     /**
-     * Fetches current weather data for the given city.
-     * 
-     * @param {string} city - The name of the city to fetch weather data for.
-     * @returns {Promise<Object|null>} - The weather data or null in case of error.
+     * Fetch current weather data for the specified city.
+     *
+     * @async
+     * @param {string} city – City name to query.
+     * @returns {Promise<Object|null>} The weather data object or null if failed.
      */
     const fetchWeatherData = async (city) => {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKeyWeather}&units=metric`;
@@ -34,31 +36,32 @@ function WeatherInfo({ city }) {
             const data = await response.json();
             return data;
         } catch (error) {
-            console.error('Error fetching current weather:', error);
+            console.error("Error fetching current weather:", error);
             return null;
         }
     };
 
     /**
-     * Fetches the 5-day weather forecast for the specified latitude and longitude.
-     * 
-     * @param {number} lat - The latitude of the location.
-     * @param {number} lon - The longitude of the location.
-     * @returns {Promise<Object|null>} - The forecast data or null in case of error.
+     * Fetch 5-day forecast data for given coordinates.
+     *
+     * @async
+     * @param {number} lat – Latitude.
+     * @param {number} lon – Longitude.
+     * @returns {Promise<Object|null>} The forecast data object or null if failed.
      */
     const fetchForecastData = async (lat, lon) => {
         const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKeyForeCast}&units=metric`;
         try {
             const response = await fetch(forecastUrl);
             const data = await response.json();
-            if (data.cod === '200') {
+            if (data.cod === "200") {
                 return data;
             } else {
-                console.error('Error fetching forecast data:', data.message);
+                console.error("Error fetching forecast data:", data.message);
                 return null;
             }
         } catch (error) {
-            console.error('Error fetching forecast:', error);
+            console.error("Error fetching forecast:", error);
             return null;
         }
     };
@@ -71,7 +74,7 @@ function WeatherInfo({ city }) {
             const currentWeather = await fetchWeatherData(city);
             setWeatherData(currentWeather);
 
-            if (currentWeather) {
+            if (currentWeather?.coord) {
                 const { lat, lon } = currentWeather.coord;
                 const forecast = await fetchForecastData(lat, lon);
                 setForecastData(forecast);
@@ -84,14 +87,12 @@ function WeatherInfo({ city }) {
     }, [city]);
 
     if (loading) {
-        return (
-            <p className="loading-text">Loading... / Type City or country</p>
-        );
+        return <p className="loading-text">Loading... / Type City or country</p>;
     }
 
     return (
         <div className="weather-and-map-wrapper">
-            {weatherData && weatherData.coord && (
+            {weatherData?.coord && (
                 <div className="map-container">
                     <MapView lat={weatherData.coord.lat} lon={weatherData.coord.lon} />
                 </div>
@@ -139,7 +140,9 @@ function WeatherInfo({ city }) {
                             <div className="forecast-grid">
                                 {forecastData?.list?.map((forecast, index) => (
                                     <div key={index} className="forecast-item">
-                                        <p>{new Date(forecast.dt * 1000).toLocaleString()}</p>
+                                        <p>
+                                            {new Date(forecast.dt * 1000).toLocaleString()}
+                                        </p>
                                         <p>Temp: {forecast.main.temp}°C</p>
                                         <p>{forecast.weather[0].description}</p>
                                     </div>
@@ -155,13 +158,8 @@ function WeatherInfo({ city }) {
     );
 }
 
-/**
- * Prop validation for WeatherInfo component.
- * 
- * @type {Object}
- * @property {string} city - The name of the city to display weather for.
- */
 WeatherInfo.propTypes = {
+    /** The city for which to display weather info */
     city: PropTypes.string.isRequired,
 };
 

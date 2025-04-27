@@ -12,15 +12,17 @@ import WeatherInfo from './components/WeatherInfo/WeatherInfo-File/WeatherInfo';
 import Header from './components/Header/Header';
 import SearchBar from './components/SearchBar/SearchBar';
 import { useState } from 'react';
+import MapView from './components/MapView/MapView';
 
 function App() {
-  // State to manage the current city name and its coordinates.
+  // State to manage the current city name.
   const [city, setCity] = useState('Plovdiv');
+  // State to manage the current coordinates for the map.
   const [coordinates, setCoordinates] = useState({ lat: null, lon: null });
 
   /**
-   * Handles the city search input by updating the city state.
-   * 
+   * Updates the current city when a new search is performed.
+   *
    * @param {string} newCity - The name of the city to search for.
    */
   const handleSearch = (newCity) => {
@@ -28,10 +30,12 @@ function App() {
   };
 
   /**
-   * Handles the weather data by updating the coordinates based on the weather data.
-   * 
-   * @param {Object} weatherData - The weather data containing coordinates.
-   * @param {Object} weatherData.coord - The coordinates of the city (lat, lon).
+   * Receives weather data and updates the map coordinates.
+   *
+   * @param {Object} weatherData - The weather data object returned from the API.
+   * @param {Object} weatherData.coord - The coordinates of the city.
+   * @param {number} weatherData.coord.lat - Latitude of the city.
+   * @param {number} weatherData.coord.lon - Longitude of the city.
    */
   const handleWeatherData = (weatherData) => {
     if (weatherData?.coord) {
