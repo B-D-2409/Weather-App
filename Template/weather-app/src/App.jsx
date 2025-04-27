@@ -1,7 +1,7 @@
 import './App.css';
 import WeatherInfo from './components/WeatherInfo/WeatherInfo-File/WeatherInfo';
-import Header from './components/WeatherInfo/Header/Header';
-import SearchBar from './components/WeatherInfo/SearchBar/SearchBar';
+import Header from './components/Header/Header';
+import SearchBar from './components/SearchBar/SearchBar';
 import { useState } from 'react';
 
 function App() {
