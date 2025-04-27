@@ -11,7 +11,7 @@ import './App.css';
 import WeatherInfo from './components/WeatherInfo/WeatherInfo-File/WeatherInfo';
 import Header from './components/Header/Header';
 import SearchBar from './components/SearchBar/SearchBar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MapView from './components/MapView/MapView';
 
 function App() {
@@ -19,6 +19,8 @@ function App() {
   const [city, setCity] = useState('Plovdiv');
   // State to manage the current coordinates for the map.
   const [coordinates, setCoordinates] = useState({ lat: null, lon: null });
+  // State to manage the day and change the picture through the night.
+  const [backgroundImage, setBackgroundImage] = useState('/.day.jpg');
 
   /**
    * Updates the current city when a new search is performed.
@@ -46,8 +48,39 @@ function App() {
     }
   };
 
+  /**
+ * useEffect hook that monitors changes to the selected city
+ * and updates the background image based on the current time of day.
+ *
+ * If the current hour is between 6 AM and 6 PM, a daytime image is set.
+ * Otherwise, a nighttime image is used.
+ *
+ * @effect Updates the background image when the city changes.
+ */
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+
+    if(hour >= 6 && hour < 18) {
+      setBackgroundImage('/day.jpg');
+    }else{
+      setBackgroundImage('/night.jpg');
+    }
+  }, [city]);
+
+
+
   return (
-    <div className="App-container">
+    <div
+    className="App-container"
+    style={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center 80%',
+      minHeight: '100vh',
+    }}
+  >
+  
       <div className="top-bar">
         <Header />
         <SearchBar onSearch={handleSearch} />
