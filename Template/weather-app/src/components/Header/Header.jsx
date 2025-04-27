@@ -1,3 +1,11 @@
+
+
+/**
+ * Displays the application header with a sun icon and title.
+ *
+ * @component
+ * @returns {JSX.Element} The header containing a sun emoji and the app title.
+ */
 import './Header.css';
 
 const Header = () => {

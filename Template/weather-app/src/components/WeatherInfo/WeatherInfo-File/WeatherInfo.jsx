@@ -1,3 +1,13 @@
+
+
+/**
+ * WeatherInfo component fetches and displays current weather and 5-day forecast for a given city.
+ *
+ * @component
+ * @param {Object} props
+ * @param {string} props.city - The name of the city for which weather data should be displayed.
+ * @returns {JSX.Element} Weather information including current weather details and a 5-day forecast with 3-hour intervals.
+ */
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import './WeatherInfo.css'
@@ -11,6 +21,12 @@ function WeatherInfo({ city }) {
     const apiKeyWeather = import.meta.env.VITE_WEATHER_API_KEY;
     const apiKeyForeCast = import.meta.env.VITE_WEATHER_API_KEY_FORECAST;
 
+    /**
+     * Fetches current weather data for the given city.
+     * 
+     * @param {string} city - The name of the city to fetch weather data for.
+     * @returns {Promise<Object|null>} - The weather data or null in case of error.
+     */
     const fetchWeatherData = async (city) => {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKeyWeather}&units=metric`;
         try {
@@ -23,6 +39,13 @@ function WeatherInfo({ city }) {
         }
     };
 
+    /**
+     * Fetches the 5-day weather forecast for the specified latitude and longitude.
+     * 
+     * @param {number} lat - The latitude of the location.
+     * @param {number} lon - The longitude of the location.
+     * @returns {Promise<Object|null>} - The forecast data or null in case of error.
+     */
     const fetchForecastData = async (lat, lon) => {
         const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKeyForeCast}&units=metric`;
         try {
@@ -132,6 +155,12 @@ function WeatherInfo({ city }) {
     );
 }
 
+/**
+ * Prop validation for WeatherInfo component.
+ * 
+ * @type {Object}
+ * @property {string} city - The name of the city to display weather for.
+ */
 WeatherInfo.propTypes = {
     city: PropTypes.string.isRequired,
 };
